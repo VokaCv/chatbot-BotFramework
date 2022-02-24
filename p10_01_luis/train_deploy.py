@@ -37,24 +37,24 @@ from p10_00_helper_func import azure_helper
 if __name__ == "__main__":
     # On récupère les arguments
     parser = argparse.ArgumentParser()
+    parser.add_argument("--az_ws_credentials", type=str)
     parser.add_argument("--is_staging", type=int, default=1)
     args = parser.parse_args()
     
     
     print("Chargement des variables d'environement.")   
     env = LuisEnv()
-    print('LUIS ENV',env)
+    print('LUIS ENV APP ID',env.LUIS_APP_ID)
     
     
     print("Chargement du workspace.")
+    # On charge les variables d'environnemnt (enregistré dans GIT -> Secrets)
+    print('PASSED AZ CRED',args.az_ws_credentials)
+    azure_credentials = json.loads(args.az_ws_credentials)
+    print('AZ CRED',azure_credentials)       
     try:
         ws = Workspace.from_config()
     except:
-        # On charge les variables d'environnemnt (enregistré dans GIT -> Secrets)
-        azure_credentials = json.loads(os.getenv("AZURE_WS_CREDENTIALS"))
-        print('AZ CRED',azure_credentials)
-
-
         # On charge l’espace de travail Azure ML
         ws = azure_helper.get_ws(azure_credentials)
     

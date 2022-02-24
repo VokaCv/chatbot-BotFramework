@@ -45,5 +45,5 @@ jobs:
       shell: bash
       run: |
         pushd './${{ env.LUIS_PATH }}'
-        $CONDA/bin/python train_deploy.py --is_staging 0
+        $CONDA/bin/python train_deploy.py --is_staging 0 --az_ws_credentials ${{ secrets.AZURE_WS_CREDENTIALS }}
         popd
