@@ -1,0 +1,49 @@
+name: LUIS deploy
+
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  # push:
+  #   branches: [ master ]
+  #   paths: #record only changes in these files
+  #     # - 'p9_01_scripts/pipe_data.py'
+  #     # - '.github/workflows/data_update.yml'
+  #     # Triggers the workflow only if this file is modified
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+  release:
+    types: [published]
+
+env:
+  AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+  AZURE_WORKSPACE: ${{ secrets.AZURE_WS_CREDENTIALS }}
+  LUIS_PATH: 'P10_01_luis'
+  PYTHON_VERSION: '3.8.8'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v2
+    - name: 'Create LUIS env file'
+      env:
+        LUIS_ENV: ${{ secrets.LUIS_ENV }}
+      shell: bash
+      run: |
+        $CONDA/bin/python -c "import os; f = open('${{ env.LUIS_PATH }}/.env', 'w+'); f.write(os.getenv('LUIS_ENV')); f.close()"
+    - name: Setup Python ${{ env.PYTHON_VERSION }} Environment
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    - name: 'Update conda environment'
+      shell: bash
+      run: |
+        $CONDA/bin/conda env update --file '${{ env.LUIS_PATH }}/conda_env.yml' --name base
+    - name: 'Create, train, deploy on production and test model'
+      shell: bash
+      run: |
+        pushd './${{ env.LUIS_PATH }}'
+        $CONDA/bin/python train_deploy.py --is_staging 0
+        popd
