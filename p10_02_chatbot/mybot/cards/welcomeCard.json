@@ -1,0 +1,36 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "Image",
+      "url": "https://drive.google.com/uc?id=145f8iXSmu1HTt-ot4-Mmoo03iq3JpwOE",
+      "size": "stretch"
+    },
+    {
+      "type": "TextBlock",
+      "spacing": "medium",
+      "size": "default",
+      "weight": "bolder",
+      "text": "Welcome to Fly Me Bot!",
+      "wrap": true,
+      "maxLines": 0
+    },
+    {
+      "type": "TextBlock",
+      "size": "default",
+      "isSubtle": "true",
+      "text": "Hi, I'm Fly Me virtual Bot and I'm here to help you to book a flight. Say 'Hi' to start!",
+      "wrap": true,
+      "maxLines": 0
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Get an overview of real-time flight",
+      "url": "https://www.flightradar24.com/"
+    }
+  ]
+}
