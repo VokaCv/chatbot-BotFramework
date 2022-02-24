@@ -43,6 +43,7 @@ if __name__ == "__main__":
     
     print("Chargement des variables d'environement.")   
     env = LuisEnv()
+    print('LUIS ENV',env)
     
     
     print("Chargement du workspace.")
@@ -50,7 +51,9 @@ if __name__ == "__main__":
         ws = Workspace.from_config()
     except:
         # On charge les variables d'environnemnt (enregistré dans GIT -> Secrets)
-        azure_credentials = json.loads(os.getenv("AZURE_CREDENTIALS"))
+        azure_credentials = json.loads(os.getenv("AZURE_WS_CREDENTIALS"))
+        print('AZ CRED',azure_credentials)
+
 
         # On charge l’espace de travail Azure ML
         ws = azure_helper.get_ws(azure_credentials)
