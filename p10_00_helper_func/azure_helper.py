@@ -109,6 +109,8 @@ def get_env(dir, file, env_name='p10_env', create=False):
     return env
 
 def get_ws(credentials=None):
+    path = str(Path(os.path.realpath(__file__)).parent)
+    dotenv.load_dotenv(Path(path, '.env'), override=True)
 
     try:
         WS_NAME = os.environ.get('WS_NAME')
