@@ -1,5 +1,5 @@
 import os,json,requests, time
-from  dotenv import load_dotenv
+from dotenv import load_dotenv
 from pathlib import Path
 
 from azure.cognitiveservices.language.luis.authoring import LUISAuthoringClient

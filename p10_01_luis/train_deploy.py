@@ -10,6 +10,7 @@ from utils import *
 
 import sys
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Add parent paskage to sys.path so it can be imported (in child folder)
 def find_pckg(pckg_name, starting_point=""):  
@@ -34,10 +35,10 @@ path = find_pckg("p10_00_helper_func")
 # once added we can import it here
 from p10_00_helper_func import azure_helper
 
+
 if __name__ == "__main__":
     # On récupère les arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("--az_ws_credentials", type=str)
     parser.add_argument("--is_staging", type=int, default=1)
     args = parser.parse_args()
     
@@ -49,15 +50,11 @@ if __name__ == "__main__":
     
     print("Chargement du workspace.")
     # On charge les variables d'environnemnt (enregistré dans GIT -> Secrets)
-    print('PASSED AZ CRED',args.az_ws_credentials)
-    azure_credentials = json.loads(args.az_ws_credentials)
-    print('AZ CRED',azure_credentials)       
     try:
         ws = Workspace.from_config()
     except:
         # On charge l’espace de travail Azure ML
-        ws = azure_helper.get_ws(azure_credentials)
-    
+        ws = azure_helper.get_ws()
 
     print("Chargement des paramètres du modèle.")
     latest_version = get_latest_version(env)
