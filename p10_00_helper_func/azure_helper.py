@@ -129,7 +129,7 @@ def get_ws(credentials=None):
         APP_ID = credentials.get('APP_ID')
         APP_PASSWORD = credentials.get('APP_PASSWORD')
 
-
+    print("ENV VARIABLES:", os.environ)
     svc_pr = ServicePrincipalAuthentication(
         tenant_id=TENANT_ID,
         service_principal_id=APP_ID,
