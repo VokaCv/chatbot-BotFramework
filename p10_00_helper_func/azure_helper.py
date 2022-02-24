@@ -1,3 +1,4 @@
+import imp
 import os
 
 from azureml.core import Workspace, Dataset, Datastore, Model
@@ -12,13 +13,15 @@ from azureml.core.webservice import AciWebservice
 from azureml.core.model import InferenceConfig
 
 import dotenv
-dotenv.load_dotenv()
+from pathlib import Path
+
+path = str(Path(os.path.realpath(__file__)).parent)
+dotenv.load_dotenv(Path(path, '.env'), override=True)
 
 
 WS_NAME = os.environ.get('WS_NAME')
 SUBSCRIPTION = os.environ.get('SUBSCRIPTION_ID_SPONSORSHIP')
 RESSOURCE_GROUP = os.environ.get('RESSOURCE_GROUP')
-
 
 
 def upload_and_register_datasets(
