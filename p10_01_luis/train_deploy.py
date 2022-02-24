@@ -49,12 +49,8 @@ if __name__ == "__main__":
     
     
     print("Chargement du workspace.")
-    # On charge les variables d'environnemnt (enregistré dans GIT -> Secrets)
-    try:
-        ws = Workspace.from_config()
-    except:
-        # On charge l’espace de travail Azure ML
-        ws = azure_helper.get_ws()
+    # On charge l’espace de travail Azure ML
+    ws = azure_helper.get_ws()
     print('WPORKSPAVCE', ws)
     
     # print("Chargement des paramètres du modèle.")
