@@ -111,7 +111,7 @@ def get_env(dir, file, env_name='p10_env', create=False):
 def get_ws(credentials=None):
     path = str(Path(os.path.realpath(__file__)).parent)
     dotenv.load_dotenv(Path(path, '.env'), override=True)
-
+    print("INSIDE HEMLPER", path)
     try:
         WS_NAME = os.environ.get('WS_NAME')
         SUBSCRIPTION_ID_SPONSORSHIP = os.environ.get('SUBSCRIPTION_ID_SPONSORSHIP')
