@@ -1,4 +1,4 @@
 **/.env
-**/.ipynb
+*.ipynb
 **/.pptx
-**/.bot
+*.bot
