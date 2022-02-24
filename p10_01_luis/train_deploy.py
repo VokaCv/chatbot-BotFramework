@@ -45,7 +45,7 @@ if __name__ == "__main__":
     
     print("Chargement des variables d'environement.")   
     env = LuisEnv()
-    print('LUIS ENV APP ID',env.LUIS_APP_ID)
+    print('LUIS ENV APP ID', env.LUIS_APP_ID)
     
     
     print("Chargement du workspace.")
@@ -55,7 +55,8 @@ if __name__ == "__main__":
     except:
         # On charge l’espace de travail Azure ML
         ws = azure_helper.get_ws()
-
+    print('WPORKSPAVCE', ws)
+    
     print("Chargement des paramètres du modèle.")
     latest_version = get_latest_version(env)
     params = get_params(env, latest_version)

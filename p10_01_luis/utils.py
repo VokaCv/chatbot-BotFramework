@@ -11,8 +11,8 @@ import pandas as pd
 
 class LuisEnv:
     def __init__(self):
-        path = str(Path().cwd())
-        load_dotenv(Path(path, 'p10_01_luis', '.env'), override=True)
+        path = str(Path(os.path.realpath(__file__)).parent)
+        load_dotenv(Path(path, '.env'), override=True)
         # On charge les variables d'environnement
         self.LUIS_AUTH_KEY = os.environ.get("LUIS_AUTH_KEY")
         self.LUIS_AUTH_ENDPOINT = os.environ.get("LUIS_AUTH_ENDPOINT")
