@@ -5,11 +5,13 @@
 name: Build and deploy Python app to Azure Web App - p10botwebapp
 
 on:
-  push:
-    branches:
-      - main
+#   push:
+#     branches:
+#       - main
   workflow_dispatch:
-
+  release:
+    types: [published]
+    
 jobs:
   build:
     runs-on: ubuntu-latest
