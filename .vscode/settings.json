@@ -31,5 +31,6 @@
         ".vscode{,/**}"
     ],
     "appService.defaultWebAppToDeploy": "/subscriptions/542fe065-7c87-4208-8b26-1fde282c337b/resourceGroups/Openclassrooms/providers/Microsoft.Web/sites/p10botwebapp",
-    "appService.deploySubpath": "p10_02_chatbot\\mybot"
+    "appService.deploySubpath": "p10_02_chatbot\\mybot",
+    "appService.showBuildDuringDeployPrompt": false
 }
