@@ -126,9 +126,6 @@ def check_response_ok_or_raise_for_status(response):
         response.raise_for_status()
 
 def get_latest_version(env):
-    print('INSIDE GET LATEST', env.LUIS_AUTH_ENDPOINT)
-    print('INSIDE GET LATEST', env.LUIS_APP_ID)
-    print('INSIDE GET LATEST', env.LUIS_AUTH_KEY)
             # On envoie la requête permettant d'exporter le modèle au format json
     response = requests.get(
         url=f"{env.LUIS_AUTH_ENDPOINT}luis/authoring/v3.0-preview/apps/{env.LUIS_APP_ID}/versions?skip=0&take=100",
