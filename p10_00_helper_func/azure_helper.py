@@ -108,7 +108,6 @@ def get_env(dir, file, env_name='p10_env', create=False):
 def get_ws(credentials=None):
     path = str(Path(os.path.realpath(__file__)).parent)
     dotenv.load_dotenv(Path(path, '.env'), override=True)
-    print("INSIDE HEMLPER", os.listdir(path))
     try:
         WS_NAME = os.environ.get('WS_NAME')
         SUBSCRIPTION_ID_SPONSORSHIP = os.environ.get('SUBSCRIPTION_ID_SPONSORSHIP')
@@ -126,7 +125,6 @@ def get_ws(credentials=None):
         APP_ID = credentials.get('APP_ID')
         APP_PASSWORD = credentials.get('APP_PASSWORD')
 
-    print("ENV VARIABLES:", os.environ)
     svc_pr = ServicePrincipalAuthentication(
         tenant_id=TENANT_ID,
         service_principal_id=APP_ID,
@@ -150,4 +148,7 @@ def get_ws(credentials=None):
         workspace_name=WS_NAME,
         auth=svc_pr
         )
+
+    print("INSIDE HELPER:", ws)
+
     return ws

@@ -52,6 +52,7 @@ if __name__ == "__main__":
     ws = azure_helper.get_ws()
     
     print("Chargement des paramètres du modèle.")
+    print('LATEST VERTSION', env.LUIS_APP_ID)
     latest_version = get_latest_version(env)
     params = get_params(env, latest_version)
         
