@@ -148,7 +148,4 @@ def get_ws(credentials=None):
         workspace_name=WS_NAME,
         auth=svc_pr
         )
-
-    print("INSIDE HELPER:", ws)
-
     return ws
