@@ -16,8 +16,7 @@ on:
     types: [published]
 
 env:
-  AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
-  AZURE_WORKSPACE: ${{ secrets.AZURE_WS_CREDENTIALS }}
+  AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}  
   LUIS_PATH: 'p10_01_luis'
   HELPER_PATH: 'p10_00_helper_func'
   PYTHON_VERSION: '3.8.8'
@@ -31,10 +30,10 @@ jobs:
     - name: 'Create env files LUIS and AZ WS'
       env:
         LUIS_ENV: ${{ secrets.LUIS_ENV }}
+        AZURE_WORKSPACE: ${{ secrets.AZURE_WS_CREDENTIALS }}
       shell: bash
       run: |
-        $CONDA/bin/python -c "import os; f = open('${{ env.LUIS_PATH }}/.env', 'w+'); f.write(os.getenv('LUIS_ENV')); f.close()"
-        $CONDA/bin/python -c "import os; f = open('${{ env.HELPER_PATH }}/.env ', 'w+'); f.write(os.getenv('AZURE_WORKSPACE')); f.close()"
+        $CONDA/bin/python -c "import os"
     - name: Setup Python ${{ env.PYTHON_VERSION }} Environment
       uses: actions/setup-python@v2
       with:
