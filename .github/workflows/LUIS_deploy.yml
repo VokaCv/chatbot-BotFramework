@@ -33,7 +33,8 @@ jobs:
         AZURE_WORKSPACE: ${{ secrets.AZURE_WS_CREDENTIALS }}
       shell: bash
       run: |
-        $CONDA/bin/python -c "import os"
+        $CONDA/bin/python -c "import os; f = open('${{ env.LUIS_PATH }}/.env', 'w+'); f.write(os.getenv('LUIS_ENV')); f.close()"
+        $CONDA/bin/python -c "import os; f = open('${{ env.HELPER_PATH }}/.env ', 'w+'); f.write(os.getenv('AZURE_WORKSPACE')); f.close()"
     - name: Setup Python ${{ env.PYTHON_VERSION }} Environment
       uses: actions/setup-python@v2
       with:
