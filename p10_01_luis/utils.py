@@ -143,6 +143,10 @@ def get_latest_version(env):
 def get_params(env, app_version):
     """Renvoie les paramètres de LUIS"""
     
+    print('INSIDE GET PARAMES', env.LUIS_AUTH_ENDPOINT)
+    print('INSIDE GET PARAMES', env.LUIS_APP_ID)
+    print('INSIDE GET PARAMES', env.LUIS_AUTH_KEY)
+
     # On envoie la requête permettant d'exporter le modèle au format json
     response = requests.get(
         url=f"{env.LUIS_AUTH_ENDPOINT}luis/authoring/v3.0-preview/apps/{env.LUIS_APP_ID}/versions/{app_version}/export",
