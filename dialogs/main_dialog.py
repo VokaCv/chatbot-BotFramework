@@ -3,18 +3,11 @@
 import uuid, json, re
 
 from botbuilder.dialogs import (
-    ComponentDialog,
-    WaterfallDialog,
-    WaterfallStepContext,
-    DialogTurnResult,
-)
+    ComponentDialog, WaterfallDialog,
+    WaterfallStepContext, DialogTurnResult)
+
 from botbuilder.dialogs.prompts import TextPrompt, PromptOptions
-from botbuilder.core import (
-    MessageFactory,
-    TurnContext,
-    BotTelemetryClient,
-    NullTelemetryClient,
-)
+from botbuilder.core import MessageFactory, BotTelemetryClient, NullTelemetryClient
 from botbuilder.schema import InputHints, Attachment
 
 from booking_details import BookingDetails
@@ -94,10 +87,11 @@ class MainDialog(ComponentDialog):
         # If the child dialog ("BookingDialog") was cancelled or the user failed to confirm,
         # the Result here will be null.
         if step_context.result is not None:
-            # Log the TP
-            properties = {}
-            properties["mainDialogUuid"] = self.uuid
-            self.telemetry_client.track_event("TP", properties)
+            # TRACK TELEMETRY IN BOOKING DIALOG RATHER THAN HERE
+            # # Log the TP
+            # properties = {}
+            # properties["mainDialogUuid"] = self.uuid
+            # self.telemetry_client.track_event("TP", properties)
 
             result = step_context.result
 
@@ -111,10 +105,11 @@ class MainDialog(ComponentDialog):
             
             await step_context.context.send_activity(message)
         else:
-            # Log the TN
-            properties = {}
-            properties["mainDialogUuid"] = self.uuid
-            self.telemetry_client.track_event("TN", properties)
+            # # Log the TN
+            # properties = {}
+            # properties["mainDialogUuid"] = self.uuid
+            # self.telemetry_client.track_event("TN", properties)
+            pass
 
         self.uuid = ""
 
