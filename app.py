@@ -117,7 +117,6 @@ async def messages(req: Request) -> Response:
     auth_header = req.headers["Authorization"] if "Authorization" in req.headers else ""   
 
     response = await ADAPTER.process_activity(activity, auth_header, BOT.on_turn)
-    print('INSIDE MDLWARE:', response)
 
     if response:
         return json_response(data=response.body, status=response.status)

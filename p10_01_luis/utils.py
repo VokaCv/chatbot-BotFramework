@@ -9,6 +9,8 @@ from msrest.authentication import CognitiveServicesCredentials
 
 import pandas as pd
 
+import urllib
+
 class LuisEnv:
     def __init__(self):
         path = str(Path(os.path.realpath(__file__)).parent)
@@ -221,27 +223,32 @@ def deploy_luis(env, app_version, is_staging=True):
     staging = is_staging
     client.apps.publish(env.LUIS_APP_ID, app_version, is_staging=staging)
     
-def get_prediction_luis(env, is_staging, utterance):
+def get_prediction_luis(env, utterance):
     """Renvoie une prédiction LUIS"""
-    
-    # On définie le slot à tester
-    if is_staging:
-        slots = "Staging"
-    else:
-        slots = "Production"
-    
-    # On crée le client 
-    clientRuntime = LUISRuntimeClient(env.LUIS_PRED_ENDPOINT, 
-                CognitiveServicesCredentials(env.LUIS_PRED_KEY))
-
-    # On effectue la prédiction
-    pred = clientRuntime.prediction.get_slot_prediction(
-        env.LUIS_APP_ID,
-        slots,
-        {"query" : [utterance]}
+    query_base = (
+    f"{env.LUIS_PRED_ENDPOINT}/luis/prediction/v3.0/apps/{env.LUIS_APP_ID}"
+    f"/slots/production/predict?verbose=true&show-all-intents=true&log=true"
+    f"&subscription-key={env.LUIS_PRED_KEY}&query="
     )
+
+    query = utterance
+    r = requests.get(query_base + urllib.parse.quote_plus(query))
+    pred = json.loads(r.text)
+
+
+    # # DOES NOT WORK ANYMORE
+    # # On crée le client 
+    # clientRuntime = LUISRuntimeClient(env.LUIS_PRED_ENDPOINT, 
+    #             CognitiveServicesCredentials(env.LUIS_PRED_KEY))
+
+    # # On effectue la prédiction
+    # pred = clientRuntime.prediction.get_slot_prediction(
+    #     env.LUIS_APP_ID,
+    #     slots,
+    #     {"query" : [utterance]}
+    # )
     
-    return pred.as_dict()
+    return pred
 
 def delete_luis(env, app_version):
     """Suppression de l'application"""
