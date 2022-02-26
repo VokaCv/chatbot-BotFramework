@@ -8,10 +8,7 @@ This sample shows how to create a bot that demonstrates the following:
 - Handle user interruptions for such things as `Help` or `Cancel`.
 - Prompt for and validate requests for information from the user.
 """
-from cgitb import reset
 from http import HTTPStatus
-from typing import Dict
-from urllib import response
 
 from aiohttp import web
 from aiohttp.web import Request, Response, json_response
@@ -55,23 +52,6 @@ CONVERSATION_STATE = ConversationState(MEMORY)
 # See https://aka.ms/about-bot-adapter to learn more about how bots work.
 ADAPTER = AdapterWithErrorHandler(SETTINGS, CONVERSATION_STATE)
 
-class CustomApplicationInsightsTelemetryClient(ApplicationInsightsTelemetryClient):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.main_dialog = None
-
-    def track_event(
-        self,
-        name: str,
-        properties: Dict[str, object] = None,
-        measurements: Dict[str, object] = None,
-    ) -> None:
-        # Add the uuid of the main dialog
-        if self.main_dialog:
-            properties["mainDialogUuid"] = self.main_dialog.uuid
-        
-        super().track_event(name, properties=properties, measurements=measurements)
-
 # Create telemetry client.
 # Note the small 'client_queue_size'.  This is for demonstration purposes.  Larger queue sizes
 # result in fewer calls to applicationInsights, improving bot performance at the expense of
@@ -79,7 +59,6 @@ class CustomApplicationInsightsTelemetryClient(ApplicationInsightsTelemetryClien
 
 INSTRUMENTATION_KEY = CONFIG.APPINSIGHTS_INSTRUMENTATIONKEY
 TELEMETRY_CLIENT = ApplicationInsightsTelemetryClient(
-# TELEMETRY_CLIENT = CustomApplicationInsightsTelemetryClient(
     instrumentation_key = INSTRUMENTATION_KEY, 
     telemetry_processor=AiohttpTelemetryProcessor(), 
     client_queue_size=10,

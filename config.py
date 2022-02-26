@@ -22,4 +22,4 @@ class DefaultConfig:
         self.LUIS_PRED_KEY = os.environ.get("LUIS_PRED_KEY", "6321abe2e88341ecab8981a107c87099")
         self.LUIS_PRED_ENDPOINT = os.environ.get("LUIS_PRED_ENDPOINT", "https://p10luis.cognitiveservices.azure.com/")
         
-        self.APPINSIGHTS_INSTRUMENTATIONKEY = os.environ.get("APPINSIGHTS_INSTRUMENTATIONKEY", "2d499cdc-86ad-4237-b30a-6c92b4590c6b")
+        self.APPINSIGHTS_INSTRUMENTATIONKEY = os.environ.get("APPINSIGHTS_INSTRUMENTATIONKEY", "7a7bd8f1-6b2a-4ddd-9bd2-ef22e1fd5143")
