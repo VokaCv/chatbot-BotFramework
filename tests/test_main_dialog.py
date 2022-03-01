@@ -4,6 +4,30 @@ from aiounittest import AsyncTestCase
 from botbuilder.core import MessageFactory
 
 from botbuilder.testing import DialogTestClient, DialogTestLogger
+from pathlib import Path
+import os, sys
+
+
+# Add parent paskage to sys.path so it can be imported (in child folder)
+def find_pckg(pckg_name, starting_point=""):  
+    if starting_point == "":
+        starting_point =  str(Path(os.path.realpath(__file__)).parent)       
+    
+    found_in = starting_point
+
+    while not pckg_name in os.listdir(found_in):
+        found_in_before = found_in
+        found_in = Path(found_in).parent
+
+        if found_in_before == found_in:
+            return None
+
+    if found_in not in sys.path:
+        sys.path.append(str(found_in))
+    return str(found_in)
+
+# name of the package to add
+path = find_pckg("dialogs")
 
 from dialogs import BookingDialog, MainDialog
 
@@ -35,4 +59,4 @@ class DialogTestClientTest(AsyncTestCase):
         )
 
         reply = await client.send_activity("hello")
-        self.assertEqual("Hi, how can I help you?", reply.text)
+        self.assertEqual("Hi, how can I help You?", reply.text)
