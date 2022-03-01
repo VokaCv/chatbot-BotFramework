@@ -40,5 +40,5 @@ jobs:
       shell: bash
       run: |
         pushd './${{ env.LUIS_TESTS_PATH }}'
-        python -m unittest -v
+        $CONDA/bin/python test.py
         popd
