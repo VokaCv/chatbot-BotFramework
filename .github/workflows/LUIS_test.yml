@@ -35,10 +35,7 @@ jobs:
     - name: 'Resolve Project Dependencies Using Pip'
       shell: bash
       run: |
-        pushd './${{ env.LUIS_PATH }}'
-        python -m pip install --upgrade pip
-        pip install -r 'requirements.txt'
-        popd
+        $CONDA/bin/conda env update --file '${{ env.LUIS_PATH }}/conda_env.yml' --name base
     - name: 'Unit test for Luis'
       shell: bash
       run: |
