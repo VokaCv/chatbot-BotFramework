@@ -191,6 +191,7 @@ class BookingDialog(CancelAndHelpDialog):
         booking_details = step_context.options
 
         # TRACK THE DATA INTO Application INSIGHTS
+        # more here https://docs.microsoft.com/en-us/azure/azure-monitor/app/api-custom-events-metrics
         properties = {}
         properties["origin"] = booking_details.from_city
         properties["destination"] = booking_details.to_city
@@ -199,14 +200,23 @@ class BookingDialog(CancelAndHelpDialog):
         properties["budget"] = booking_details.budget
 
 
+        # severity levels as per  App Insight doc
+        severity_level = {0: "Verbose",
+                          1: "Information",
+                          2: "Warning",
+                          3: "Error",
+                          4: "Critical",
+                        }
+
         if step_context.result:
             # booking_details = step_context.options
 
             # TRACK THE DATA INTO Application INSIGHTS
-            self.telemetry_client.track_trace("YES answer", properties, "INFO")
+            # INFO, ERROR are severity levels reported to App Insight
+            self.telemetry_client.track_trace("YES answer", properties, severity_level[1])
             return await step_context.end_dialog(booking_details)
         else:
             # TRACK THE DATA INTO Application INSIGHTS
-            self.telemetry_client.track_trace("NO answer", properties, "ERROR")
+            self.telemetry_client.track_trace("NO answer", properties, severity_level[3])
 
         return await step_context.end_dialog()

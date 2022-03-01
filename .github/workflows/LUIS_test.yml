@@ -1,0 +1,46 @@
+name: LUIS unit test
+
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  # push:
+  #   branches: [ master ]
+  #   paths: #record only changes in these files
+  #     # - 'p9_01_scripts/pipe_data.py'
+  #     # - '.github/workflows/data_update.yml'
+  #     # Triggers the workflow only if this file is modified
+
+  # Allows you to run this workflow manually from the Actions tab
+  
+  workflow_dispatch:
+  push:
+    paths:
+      - 'p10_01_luis/**'
+
+env:
+  PYTHON_VERSION: '3.8.8'
+  LUIS_PATH: 'p10_01_luis/tests'
+  LUIS_ENV: ${{ secrets.LUIS_ENV }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v2
+    - name: Setup Python ${{ env.PYTHON_VERSION }} Environment
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    - name: 'Resolve Project Dependencies Using Pip'
+      shell: bash
+      run: |
+        pushd './${{ env.LUIS_PATH }}'
+        python -m pip install --upgrade pip
+        pip install -r 'requirements.txt'
+        popd
+    - name: 'Unit test for Luis'
+      shell: bash
+      run: |
+        pushd './${{ env.LUIS_PATH }}'
+        python -m unittest -v
+        popd

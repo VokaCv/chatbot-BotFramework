@@ -1,0 +1,40 @@
+name: Bot Webapp test
+
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  # push:
+  #   branches: [ master ]
+  #   paths: #record only changes in these files
+  #     # - 'p9_01_scripts/pipe_data.py'
+  #     # - '.github/workflows/data_update.yml'
+  #     # Triggers the workflow only if this file is modified
+
+  # Allows you to run this workflow manually from the Actions tab
+  
+  workflow_dispatch:
+  pull_request:
+
+env:
+  PYTHON_VERSION: '3.8.8'
+  
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v2
+    - name: Setup Python ${{ env.PYTHON_VERSION }} Environment
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    - name: 'Resolve Project Dependencies Using Pip'
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r 'requirements.txt'
+        popd
+    - name: 'WebApp unit tests'
+      shell: bash
+      run: |
+        python -m unittest -v
+        popd
