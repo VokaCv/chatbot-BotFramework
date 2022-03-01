@@ -18,7 +18,8 @@ on:
 
 env:
   PYTHON_VERSION: '3.8.8'
-  LUIS_PATH: 'p10_01_luis/tests'
+  LUIS_PATH: 'p10_01_luis'
+  LUIS_TESTS_PATH: 'p10_01_luis/tests'
   LUIS_ENV: ${{ secrets.LUIS_ENV }}
 
 jobs:
@@ -41,6 +42,6 @@ jobs:
     - name: 'Unit test for Luis'
       shell: bash
       run: |
-        pushd './${{ env.LUIS_PATH }}'
+        pushd './${{ env.LUIS_TESTS_PATH }}'
         python -m unittest -v
         popd
