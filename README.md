@@ -17,8 +17,11 @@ Le chatbot est développé en tant que dialogue en cascade,  c'est à dire que l
 L'ensemble du projet est développer sur Azure donc pour consommer ce git il faut avoir un compte Azure et Github.
 
 pour plus de détails sur l'utilisation de Microsoft Azure voir:
+
     - [LUIS AI reconnaissance de texte](https://docs.microsoft.com/fr-fr/azure/cognitive-services/luis/)
+
     - [Bot Framework](https://docs.microsoft.com/fr-fr/azure/bot-service/index-bf-sdk?view=azure-bot-service-4.0)
+    
     - [App Insight pour le suivi de performances](https://docs.microsoft.com/fr-fr/azure/azure-monitor/app/app-insights-overview)
 
 ## Déploiement 
