@@ -24,3 +24,6 @@ pour plus de détails sur l'utilisation de Microsoft Azure voir:
 ## Déploiement 
 
 Le modèle LUIS ainsi que le bot framework sont déployés à partir des Git actoins.
+
+## Démo
+![](image54.gif)
